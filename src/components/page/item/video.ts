@@ -11,19 +11,26 @@ export class VideoComponent extends BaseComponent<HTMLElement> {
       '.video-iframe'
     )! as HTMLIFrameElement
     console.log(url)
-    iframe.src = 'https://www.youtube.com/embed/flSTjmpZr6w' // url -> videoId -> embed
+    iframe.src = this.convertToEmbeddedURL(url)
 
     const titleElement = this.element.querySelector(
       '.video-title'
     )! as HTMLHeadingElement
     titleElement.textContent = title
   }
+
+  private convertToEmbeddedURL(url: string): string {
+    const regExp =
+      /^(?:https?:\/\/)?(?:www\.)?(?:(?:youtube.com\/(?:(?:watch\?v=)|(?:embed\/))([a-zA-Z0-9-]{11}))|(?:youtu.be\/([a-zA-Z0-9-]{11})))/
+    const match = url.match(regExp)
+
+    console.log(match)
+
+    const videoId = match && (match[1] || match[2])
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}`
+    }
+
+    return url
+  }
 }
-
-// input
-// https://www.youtube.com/watch?v=flSTjmpZr6w&t=391s
-// https://www.youtube.com/flSTjmpZr6w
-// output
-// https://www.youtube.com/embed/flSTjmpZr6w
-
-// <iframe width="944" height="540" src="https://www.youtube.com/embed/flSTjmpZr6w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
