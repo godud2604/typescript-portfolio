@@ -1,5 +1,6 @@
 .dialog {
   @include flexbox();
+  flex-direction: column;
   z-index: 1;
   position: fixed;
   left: 0;
@@ -7,20 +8,35 @@
   width: 100%;
   height: 100%;
   font-size: 1.2rem;
-  background-color: $primary;
-}
+  background-color: $blue;
+  opacity: 0.8;
 
-.dialog-container {
-  display: flex;
-  flex-direction: column;
-  padding: 0.4em;
-  width: 32em;
-  background-color: $secondary;
-  border: 1px solid $border;
-  border-radius: 0.5rem;
-  box-shadow: 2px 2px 20px $dark;
+  &-container {
+    max-width: 400px;
+  }
+
+  .close-btn-wrap {
+    width: 100%;
+    text-align: right;
+  }
 
   .close {
-    border-bottom: 1px solid $border;
+    padding: 10px;
   }
+}
+
+.form-container {
+  padding: 10px;
+  @include text-style(16, $black);
+  font-weight: 900;
+}
+
+.dialog-submit {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  @include text-style(16, $black);
+  font-weight: 900;
+  background-color: $blue-dark;
 }

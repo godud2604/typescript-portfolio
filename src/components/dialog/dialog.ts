@@ -22,9 +22,13 @@ export class InputDialog
   private submitListener?: OnSubmitListener
   constructor() {
     super(`<section class="dialog">
-            <button class="close">&times;</button>
-            <div id="dialog-body"></div>
-            <button class="dialog-submit">ADD</button>
+            <div class="dialog-container">
+              <div class="close-btn-wrap">
+                <button class="close">&times;</button>
+              </div>
+              <div id="dialog-body"></div>
+              <button class="dialog-submit">ADD</button>
+            </div>
           </section>`)
     const closeBtn = this.element.querySelector('.close')! as HTMLElement
     closeBtn.onclick = () => {
