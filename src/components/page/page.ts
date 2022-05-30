@@ -19,7 +19,7 @@ export class PageItemComponent
 {
   private closeListener?: OnCloseListener
   constructor() {
-    super(`<li class="page-item">
+    super(`<li draggable="true" class="page-item">
             <section class="page-item-body"></section>
             <div class="page-item-controls">
               <button class="close">&times;</button>
@@ -29,6 +29,19 @@ export class PageItemComponent
     closeBtn.onclick = () => {
       this.closeListener && this.closeListener()
     }
+    this.element.addEventListener('dragstart', (event: DragEvent) => {
+      this.onDragStart(event)
+    })
+    this.element.addEventListener('dragend', (event: DragEvent) => {
+      this.onDragEnd(event)
+    })
+  }
+
+  onDragStart(event: DragEvent) {
+    console.log('dragstart', event)
+  }
+  onDragEnd(event: DragEvent) {
+    console.log('dragend', event)
   }
 
   addChild(child: Component) {
@@ -49,6 +62,20 @@ export class PageComponent
 {
   constructor(private pageItemConstructor: SectionContainerConstructor) {
     super('<ul class="page"></ul>')
+    this.element.addEventListener('dragover', (event: DragEvent) => {
+      this.onDragOver(event)
+    })
+    this.element.addEventListener('drag', (event: DragEvent) => {
+      this.onDrag(event)
+    })
+  }
+  onDragOver(event: DragEvent) {
+    event.preventDefault()
+    console.log('dragover', event)
+  }
+  onDrag(event: DragEvent) {
+    event.preventDefault()
+    console.log('drag', event)
   }
 
   addChild(section: Component) {
